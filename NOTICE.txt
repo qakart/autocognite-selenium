@@ -1,17 +1,17 @@
-AutoCognite Batteries
+AutoCognite Selenium
 Copyright 2015-2016 Rahul Verma
 
 This software includes software developed by Rahul Verma 
 at AutoCognite (http://www.autcognite.com)
 
-AutoCognite Batteries is released under Apache 2.0 license.
+AutoCognite Selenium is released under Apache 2.0 license.
 
-AutoCognite Batteries uses UNMODIFIED versions of all of the 
+AutoCognite Selenium uses UNMODIFIED versions of all of the 
 listed libraries and may include one or more of these 
 as a part of its distribution.
 
 Following are the contents of notice files of all libraries 
-used by AutoCognite Batteries.
+used by AutoCognite Selenium.
 
 Apache Commons CLI
 --------------------

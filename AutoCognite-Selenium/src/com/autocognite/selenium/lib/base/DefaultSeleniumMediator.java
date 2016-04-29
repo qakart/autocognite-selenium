@@ -14,7 +14,7 @@ import com.autocognite.uiautomator.api.ElementMetaData;
 import com.autocognite.uiautomator.api.UiElement;
 import com.autocognite.uiautomator.api.enums.ElementLoaderType;
 import com.autocognite.uiautomator.api.enums.UiElementType;
-import com.autocognite.uiautomator.lib.BaseUiMediator;
+import com.autocognite.uiautomator.lib.base.BaseUiMediator;
 
 public class DefaultSeleniumMediator extends BaseUiMediator implements WDMediator{
 	
@@ -155,8 +155,8 @@ public class DefaultSeleniumMediator extends BaseUiMediator implements WDMediato
 		// Set properties
 		childUiElement.setName(this.getUiElement().getName() + " (instance)");
 		//childUiElement.setMetaData(this.getUiElement().getMetaData()); // is set as a part of element construction
-		childUiElement.setEntityName(this.getUiElement().getEntityName());
-		childUiElement.setUiLabel(this.getUiElement().getUiLabel());
+		childUiElement.setCompositePageName(this.getUiElement().getCompositePageName());
+		childUiElement.setPageLabel(this.getUiElement().getPageLabel());
 		setElementForChildUiElement(childUiElement, toolElement);
 		return childUiElement;
 	}

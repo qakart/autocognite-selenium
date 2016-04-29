@@ -42,7 +42,7 @@ import com.autocognite.uiautomator.api.enums.UiDriverEngine;
 import com.autocognite.uiautomator.api.enums.UiElementType;
 import com.autocognite.uiautomator.api.identify.enums.WebIdentifyBy;
 import com.autocognite.uiautomator.lib.DefaultUiDriver;
-import com.autocognite.uiautomator.lib.ext.DefaultUiElement;
+import com.autocognite.uiautomator.lib.DefaultUiElement;
 
 public class SeleniumWebUiDriver extends DefaultUiDriver implements SeleniumUiDriver {
 	

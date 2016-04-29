@@ -1,4 +1,4 @@
-package com.autocognite.selenium.lib;
+package com.autocognite.selenium.lib.base;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -16,15 +16,15 @@ import com.autocognite.uiautomator.api.enums.ElementLoaderType;
 import com.autocognite.uiautomator.api.enums.UiElementType;
 import com.autocognite.uiautomator.lib.BaseUiMediator;
 
-public abstract class BaseSeleniumMediator extends BaseUiMediator implements WDMediator {
-
+public class DefaultSeleniumMediator extends BaseUiMediator implements WDMediator{
+	
 	private SeleniumUiDriver automator = null;
 	private WebElement toolElement = null;
 	private Select selectElement = null;
 	private List<WebElement> toolElements = null;
 	private ArrayList<By> toolFindByQueue = null;
-
-	public BaseSeleniumMediator(UiElement uiElement, SeleniumUiDriver automator) {
+	
+	public DefaultSeleniumMediator(SeleniumUiDriver uiDriver, UiElement uiElement){
 		super(uiElement);
 		this.setSeleniumUiDriver(automator);
 	}
@@ -711,5 +711,4 @@ public abstract class BaseSeleniumMediator extends BaseUiMediator implements WDM
 			throw new Exception("Right click and Click Element failed.");
 		}
 	}
-
 }

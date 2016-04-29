@@ -31,6 +31,7 @@ import com.autocognite.configurator.Configurator;
 import com.autocognite.configurator.api.config.RunConfiguration;
 import com.autocognite.selenium.api.SeleniumUiDriver;
 import com.autocognite.selenium.api.WDMediator;
+import com.autocognite.selenium.lib.base.DefaultSeleniumMediator;
 import com.autocognite.uiautomator.UiAutomator;
 import com.autocognite.uiautomator.api.ElementMetaData;
 import com.autocognite.uiautomator.api.Identifier;
@@ -40,17 +41,18 @@ import com.autocognite.uiautomator.api.enums.ElementLoaderType;
 import com.autocognite.uiautomator.api.enums.UiDriverEngine;
 import com.autocognite.uiautomator.api.enums.UiElementType;
 import com.autocognite.uiautomator.api.identify.enums.WebIdentifyBy;
-import com.autocognite.uiautomator.lib.DefaultUiAutomator;
+import com.autocognite.uiautomator.lib.DefaultUiDriver;
+import com.autocognite.uiautomator.lib.ext.DefaultUiElement;
 
-public abstract class BaseSeleniumUiDriver extends DefaultUiAutomator implements SeleniumUiDriver{
-
+public class SeleniumWebUiDriver extends DefaultUiDriver implements SeleniumUiDriver {
+	
 	private WebDriver driver = null;
 	private WebDriverWait waiter = null;
 	private Browser browser = null;
 	private int waitTime = -1;
 	DesiredCapabilities capabilities = null;
 	
-	public BaseSeleniumUiDriver(RunConfiguration runConfig, ElementLoaderType loaderType){
+	public SeleniumWebUiDriver(RunConfiguration runConfig, ElementLoaderType loaderType){
 		super(runConfig, AutomationContext.PC_WEB, loaderType);
 		initDriver();
 		switch (this.getBrowser()){
@@ -69,7 +71,7 @@ public abstract class BaseSeleniumUiDriver extends DefaultUiAutomator implements
 		maximizeWindow();
 	}
 	
-	public BaseSeleniumUiDriver(RunConfiguration runConfig){
+	public SeleniumWebUiDriver(RunConfiguration runConfig){
 		this(runConfig, ElementLoaderType.AUTOMATOR);
 	}
 
@@ -213,8 +215,6 @@ public abstract class BaseSeleniumUiDriver extends DefaultUiAutomator implements
 		mediator.setAutomatorName(Configurator.getComponentName("WEBDRIVER_AUTOMATOR"));
 		return uiElement;
 	}
-
-	protected abstract UiElement createDefaultElementSkeleton(ElementMetaData elementMetaData) throws Exception;
 
 	@SuppressWarnings("incomplete-switch")
 	public By getFinderType(String identifier, String idValue) throws Exception {
@@ -677,4 +677,12 @@ public abstract class BaseSeleniumUiDriver extends DefaultUiAutomator implements
 		click(findElement(finder2));
 	}
 
+	public WDMediator createMediatorSkeleton(UiElement element) throws Exception {
+		return new DefaultSeleniumMediator(this, element);
+	}
+	
+	public UiElement createDefaultElementSkeleton(ElementMetaData elementMetaData) throws Exception {
+		return new DefaultUiElement(elementMetaData);
+	}
+	
 }

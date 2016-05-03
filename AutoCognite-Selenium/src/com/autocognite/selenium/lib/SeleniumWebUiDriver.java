@@ -28,7 +28,7 @@ import com.autocognite.batteries.FileSystemBatteries;
 import com.autocognite.batteries.SystemBatteries;
 import com.autocognite.batteries.api.enums.Browser;
 import com.autocognite.configurator.Configurator;
-import com.autocognite.configurator.api.config.RunConfiguration;
+import com.autocognite.configurator.api.RunConfiguration;
 import com.autocognite.selenium.api.SeleniumUiDriver;
 import com.autocognite.selenium.api.WDMediator;
 import com.autocognite.selenium.lib.base.DefaultSeleniumMediator;

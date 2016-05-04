@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.autocognite.configurator.lib.strings.Name;
 import com.autocognite.configurator.lib.strings.NamesContainer;
 
-public class SeleniumWDNames {
+public class SeleniumAutomatorNames {
 	
 	public static ArrayList<NamesContainer> getAllNames(){
 		ArrayList<NamesContainer> containers = new ArrayList<NamesContainer>();

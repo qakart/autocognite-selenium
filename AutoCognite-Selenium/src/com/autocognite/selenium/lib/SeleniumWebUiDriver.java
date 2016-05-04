@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2016 Rahul Verma (Web: www.AutoCognite.com, Email: RV@autocognite.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************/
 package com.autocognite.selenium.lib;
 
 import java.io.File;
@@ -24,11 +39,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.autocognite.batteries.FileSystemBatteries;
-import com.autocognite.batteries.SystemBatteries;
 import com.autocognite.batteries.api.enums.Browser;
+import com.autocognite.batteries.lib.FileSystemBatteries;
+import com.autocognite.batteries.lib.SystemBatteries;
 import com.autocognite.configurator.Configurator;
-import com.autocognite.configurator.api.config.RunConfiguration;
+import com.autocognite.configurator.api.RunConfiguration;
 import com.autocognite.selenium.api.SeleniumUiDriver;
 import com.autocognite.selenium.api.WDMediator;
 import com.autocognite.selenium.lib.base.DefaultSeleniumMediator;
@@ -93,7 +108,7 @@ public class SeleniumWebUiDriver extends DefaultUiDriver implements SeleniumUiDr
 	}
 
 	public WebDriver getFirefoxDriver() {
-		this.setAppTitle(runConfig.get(UiAutomator.WINDOW_NAME_FIREFOX));
+		this.setAppTitle(getRunConfig().get(UiAutomator.WINDOW_NAME_FIREFOX));
 		capabilities = getFireFoxCapabilitiesSkeleton();
 		//driver = new FirefoxDriver(capabilities);
 		FirefoxProfile profile = new FirefoxProfile();
@@ -104,7 +119,7 @@ public class SeleniumWebUiDriver extends DefaultUiDriver implements SeleniumUiDr
 	}
 
 	public WebDriver getChromeDriver() {
-		this.setAppTitle(runConfig.get(UiAutomator.WINDOW_NAME_CHROME));
+		this.setAppTitle(getRunConfig().get(UiAutomator.WINDOW_NAME_CHROME));
 		String os = SystemBatteries.getOSName();
 		String chromeDriverBinaryName = null;
 		if (os.startsWith("Window")){
@@ -112,22 +127,22 @@ public class SeleniumWebUiDriver extends DefaultUiDriver implements SeleniumUiDr
 		} else if (os.startsWith("Mac")) {
 			chromeDriverBinaryName = "chromedriver";
 		}
-		System.setProperty("webdriver.chrome.driver", runConfig.get(UiAutomator.DEPENDS_BROWSER_DIR) + "/" + chromeDriverBinaryName);
+		System.setProperty("webdriver.chrome.driver", getRunConfig().get(UiAutomator.DEPENDS_BROWSER_DIR) + "/" + chromeDriverBinaryName);
 		capabilities = getChromeCapabilitiesSkeleton();
 		setCapabilities(capabilities);
 		return new ChromeDriver(capabilities);
 	}
 
 	public WebDriver getSafariDriver() {
-		this.setAppTitle(runConfig.get(UiAutomator.WINDOW_NAME_SAFARI));
+		this.setAppTitle(getRunConfig().get(UiAutomator.WINDOW_NAME_SAFARI));
 		capabilities = getSafariCapabilitiesSkeleton();
 		setCapabilities(capabilities);
 		return new SafariDriver(capabilities);
 	}
 
 	public void initDriver() {
-		this.setBrowser(Browser.valueOf(getRunConfiguration().get(UiAutomator.PC_BROWSER).toUpperCase()));
-		this.setWaitTime(Integer.parseInt(runConfig.get(UiAutomator.PC_BROWSER_WAIT_TIME)));
+		this.setBrowser(Browser.valueOf(getRunConfig().get(UiAutomator.PC_BROWSER).toUpperCase()));
+		this.setWaitTime(Integer.parseInt(getRunConfig().get(UiAutomator.PC_BROWSER_WAIT_TIME)));
 		this.setUiTestEngineName(UiDriverEngine.WEBDRIVER);		
 	}
 
@@ -180,7 +195,7 @@ public class SeleniumWebUiDriver extends DefaultUiDriver implements SeleniumUiDr
 	}
 
 	public void setCapabilities(DesiredCapabilities capabilities) {
-		RunConfiguration config = getRunConfiguration();
+		RunConfiguration config = getRunConfig();
 		if (config.get(UiAutomator.PC_BROWSER_PROXY).toLowerCase().equals("true")){
 			Proxy proxy = new Proxy();
 			String p = config.get(UiAutomator.PC_BROWSER_PROXY_HOST) + ":" + config.get(UiAutomator.PC_BROWSER_PROXY_PORT);
@@ -339,7 +354,7 @@ public class SeleniumWebUiDriver extends DefaultUiDriver implements SeleniumUiDr
 	public File takeScreenshot() throws Exception {
 		TakesScreenshot augDriver = getScreenshotAugmentedDriver();
         File srcFile = augDriver.getScreenshotAs(OutputType.FILE);
-        return FileSystemBatteries.moveFiletoDir(srcFile, this.getRunConfiguration().get(Configurator.TEMP_SCREENSHOTS_DIR));
+        return FileSystemBatteries.moveFiletoDir(srcFile, this.getRunConfig().get(Configurator.TEMP_SCREENSHOTS_DIR));
 	}
 	
 	public void focusOnApp() throws Exception{

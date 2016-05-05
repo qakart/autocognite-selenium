@@ -368,7 +368,7 @@ public class DefaultSeleniumMediator extends BaseUiMediator implements WDMediato
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.autocognite.unitee.pvt.uiautomator.webdriver.IWDMediator#isPresent()
+	 * @see  com.autocognite.unitee.pvt.uiautomator.webdriver.IWDMediator#isPresent()
 	 */
 	@Override
 	public boolean isPresent() throws Exception {

@@ -33,7 +33,7 @@ import com.autocognite.uiautomator.lib.base.BaseUiMediator;
 
 public class DefaultSeleniumMediator extends BaseUiMediator implements WDMediator{
 	
-	private SeleniumUiDriver automator = null;
+	private SeleniumUiDriver uiDriver = null;
 	private WebElement toolElement = null;
 	private Select selectElement = null;
 	private List<WebElement> toolElements = null;
@@ -41,17 +41,17 @@ public class DefaultSeleniumMediator extends BaseUiMediator implements WDMediato
 	
 	public DefaultSeleniumMediator(SeleniumUiDriver uiDriver, UiElement uiElement){
 		super(uiElement);
-		this.setSeleniumUiDriver(automator);
+		this.setSeleniumUiDriver(uiDriver);
 	}
 
 	@Override
 	public SeleniumUiDriver getSeleniumUiDriver() {
-		return automator;
+		return uiDriver;
 	}
 
 	@Override
-	public void setSeleniumUiDriver(SeleniumUiDriver automator) {
-		this.automator = automator;
+	public void setSeleniumUiDriver(SeleniumUiDriver uiDriver) {
+		this.uiDriver = uiDriver;
 	}
 
 	@Override

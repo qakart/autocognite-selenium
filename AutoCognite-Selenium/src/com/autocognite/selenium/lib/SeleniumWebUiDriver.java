@@ -127,7 +127,7 @@ public class SeleniumWebUiDriver extends DefaultUiDriver implements SeleniumUiDr
 		} else if (os.startsWith("Mac")) {
 			chromeDriverBinaryName = "chromedriver";
 		}
-		System.setProperty("webdriver.chrome.driver", getRunConfig().get(UiAutomator.DEPENDS_BROWSER_DIR) + "/" + chromeDriverBinaryName);
+		System.setProperty("webdriver.chrome.driver", getRunConfig().get(UiAutomator.TOOLS_UIDRIVERS_DIR) + "/" + chromeDriverBinaryName);
 		capabilities = getChromeCapabilitiesSkeleton();
 		setCapabilities(capabilities);
 		return new ChromeDriver(capabilities);

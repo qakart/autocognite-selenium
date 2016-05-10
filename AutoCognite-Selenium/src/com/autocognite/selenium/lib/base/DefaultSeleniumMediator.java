@@ -385,7 +385,55 @@ public class DefaultSeleniumMediator extends BaseUiMediator implements WDMediato
 
 		return present;
 	}
+	
+	@Override
+	public boolean isAbsent() throws Exception {
+		boolean present = false;
+		SeleniumUiDriver automator = getSeleniumUiDriver();
+		for(By by: this.getToolFindersQueue()){
+			try{
+				present = automator.isElementAbsent(by);
+				if (present) break;
+			} catch (Exception e){
+				// Do nothing
+			}
+		}
 
+		return present;
+	}
+	
+	@Override
+	public boolean isVisible() throws Exception {
+		boolean present = false;
+		SeleniumUiDriver automator = getSeleniumUiDriver();
+		for(By by: this.getToolFindersQueue()){
+			try{
+				present = automator.isElementVisible(by);
+				if (present) break;
+			} catch (Exception e){
+				// Do nothing
+			}
+		}
+
+		return present;
+	}
+
+	@Override
+	public boolean isInvisible() throws Exception {
+		boolean present = false;
+		SeleniumUiDriver automator = getSeleniumUiDriver();
+		for(By by: this.getToolFindersQueue()){
+			try{
+				present = automator.isElementInvisible(by);
+				if (present) break;
+			} catch (Exception e){
+				// Do nothing
+			}
+		}
+
+		return present;
+	}
+	
 	/* (non-Javadoc)
 	 * @see com.autocognite.unitee.pvt.uiautomator.webdriver.IWDMediator#click()
 	 */
@@ -408,8 +456,45 @@ public class DefaultSeleniumMediator extends BaseUiMediator implements WDMediato
 				// Do nothing
 			}
 		}
-		throw new Exception("Not able to establish element present after polling for it.");
-		
+		throw new Exception("Not able to establish element presence after polling for it.");
+	}
+	
+	@Override
+	public void waitForAbsence() throws Exception {
+		try{
+			waitForPresence();
+			throw new Exception("Not able to establish element absence after polling for it.");
+		} catch (Exception e){
+			// Element is absent as expected. Do nothing.
+		}		
+	}
+	
+	@Override
+	public void waitForVisibility() throws Exception {
+		SeleniumUiDriver automator = getSeleniumUiDriver();
+		for(By by: this.getToolFindersQueue()){
+			try{
+				automator.waitForElementVisibility(by);
+				return;
+			} catch (Exception e){
+				// Do nothing
+			}
+		}
+		throw new Exception("Not able to establish element presence after polling for it.");
+	}
+	
+	@Override
+	public void waitForInvisibility() throws Exception {
+		SeleniumUiDriver automator = getSeleniumUiDriver();
+		for(By by: this.getToolFindersQueue()){
+			try{
+				automator.waitForElementInvisibility(by);
+				return;
+			} catch (Exception e){
+				// Do nothing
+			}
+		}
+		throw new Exception("Not able to establish element presence after polling for it.");
 	}
 
 	/* (non-Javadoc)
@@ -726,4 +811,5 @@ public class DefaultSeleniumMediator extends BaseUiMediator implements WDMediato
 			throw new Exception("Right click and Click Element failed.");
 		}
 	}
+
 }

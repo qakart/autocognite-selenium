@@ -73,5 +73,11 @@ public interface SeleniumUiDriver {
 	void hover(WebElement element) throws Exception;
 	void switchToFrame(WebElement wdElement) throws Exception;
 	WDMediator createMediatorSkeleton(UiElement uiElement) throws Exception;
+	void waitForElementAbsence(By findBy) throws Exception;
+	void waitForElementVisibility(By findBy) throws Exception;
+	void waitForElementInvisibility(By findBy) throws Exception;
+	boolean isElementAbsent(By findBy);
+	boolean isElementVisible(By findBy);
+	boolean isElementInvisible(By findBy);
 
 }

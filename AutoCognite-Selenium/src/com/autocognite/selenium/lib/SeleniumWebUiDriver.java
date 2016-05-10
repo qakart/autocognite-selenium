@@ -377,9 +377,20 @@ public class SeleniumWebUiDriver extends DefaultUiDriver implements SeleniumUiDr
 		List<WebElement> elements = getDriver().findElements(findBy);
 		return elements;
 	}
-	
+
+	@Override
 	public void waitForElementPresence(By findBy) throws Exception {
 		getWaiter().until(ExpectedConditions.presenceOfElementLocated(findBy));
+	}
+	
+	@Override
+	public void waitForElementAbsence(By findBy) throws Exception {
+		try{
+			getWaiter().until(ExpectedConditions.presenceOfElementLocated(findBy));
+			throw new Exception("Not able to establish absence of element after polling for same.");
+		} catch (Exception e){
+			// Do nothing.
+		}
 	}
 	
 	public void waitForElementClickability(By findBy) throws Exception {
@@ -389,7 +400,18 @@ public class SeleniumWebUiDriver extends DefaultUiDriver implements SeleniumUiDr
 	public void waitForElementClickability(WebElement element) throws Exception {
 		getWaiter().until(ExpectedConditions.elementToBeClickable(element));
 	}
+
+	@Override
+	public void waitForElementVisibility(By findBy) throws Exception {
+		getWaiter().until(ExpectedConditions.visibilityOfElementLocated(findBy));
+	}
+
+	@Override
+	public void waitForElementInvisibility(By findBy) throws Exception {
+		getWaiter().until(ExpectedConditions.invisibilityOfElementLocated(findBy));
+	}
 	
+	@Override
 	public boolean isElementPresent(By findBy) {
 		try {
 			waitForElementPresence(findBy);
@@ -399,6 +421,40 @@ public class SeleniumWebUiDriver extends DefaultUiDriver implements SeleniumUiDr
 		}
 		
 	}
+
+	@Override
+	public boolean isElementAbsent(By findBy) {
+		try {
+			waitForElementAbsence(findBy);
+			return true;
+		} catch ( Exception e){
+			return false;
+		}
+		
+	}
+	
+	@Override
+	public boolean isElementVisible(By findBy) {
+		try {
+			waitForElementVisibility(findBy);
+			return true;
+		} catch ( Exception e){
+			return false;
+		}
+		
+	}
+	
+	@Override
+	public boolean isElementInvisible(By findBy) {
+		try {
+			waitForElementInvisibility(findBy);
+			return true;
+		} catch ( Exception e){
+			return false;
+		}
+		
+	}
+
 	
 	/* Element Basic Actions */
 	
